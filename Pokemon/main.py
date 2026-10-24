@@ -15,6 +15,11 @@ name = Pokemon.get('name')
 height = Pokemon.get('height')
 weight = Pokemon.get('weight')
 
+types = []
+for item in Pokemon['types']:
+    types.append(item['type']['name'])
+types_text = ", ".join(types)
+
 abilities = []
 for item in Pokemon['abilities']:
     abilities.append(item['ability']['name'])
@@ -23,6 +28,7 @@ abilities_text = ", ".join(abilities)
 print("Who's that Pokemon??")
 print(f"Height: {height}")
 print(f"Weight: {weight}")
+print(f"Types: {types_text}")
 print(f"Abilities: {abilities_text}")
 
 for attempt in range(1, 4):
