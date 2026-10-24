@@ -1,16 +1,31 @@
 import requests
 import random
 
-Pokemon_List = [umbreon, espeon, sceptile, haxorus, baxcalibur]
-name = random.choice(Pokemon_List)
+Pokemon_List = ["umbreon", "espeon", "sceptile", "haxorus", "baxcalibur"]
+answer = random.choice(Pokemon_List)
 
-response = requests.get('https://pokeapi.co/api/v2/pokemon/gengar')
+try:
+    response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{answer}")
+except requests.exceptions.RequestException:
+    print("Network error. Please check your internet connection.")
+    exit()
+
 Pokemon = response.json()
-
-
+name = Pokemon.get('name')
 height = Pokemon.get('height')
 weight = Pokemon.get('weight')
+ability = Pokemon.get('abilities')
 
 print("Who's that Pokemon??")
-print(height)
-print(weight)
+print(f"Height: {height}")
+print(f"Weight: {weight}")
+print(f"Ability: {ability}")
+
+for attempt in range(1, 4):
+    guess = input(f"Attempt {attempt}/3 - Your guess: ").strip().lower()
+    if guess == name:
+        print(f"Correct! It's {name.capitalize()}!")
+        break
+    print("Wrong! Try Again!")
+else: 
+    print(f"Game Over! The Pokemon is {name.capitalize()}.")
