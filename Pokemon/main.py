@@ -14,12 +14,16 @@ Pokemon = response.json()
 name = Pokemon.get('name')
 height = Pokemon.get('height')
 weight = Pokemon.get('weight')
-ability = Pokemon.get('abilities')
+
+abilities = []
+for item in Pokemon['abilities']:
+    abilities.append(item['ability']['name'])
+abilities_text = ", ".join(abilities)
 
 print("Who's that Pokemon??")
 print(f"Height: {height}")
 print(f"Weight: {weight}")
-print(f"Ability: {ability}")
+print(f"Abilities: {abilities_text}")
 
 for attempt in range(1, 4):
     guess = input(f"Attempt {attempt}/3 - Your guess: ").strip().lower()
